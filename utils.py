@@ -25,4 +25,4 @@ class Graph(object):
             
     def trivial_colour(self):
         self.colours = [i for i in range(self.N)]
-        self.colour_count = max(self.colours)
+        self.colour_count = max(self.colours) + 1
