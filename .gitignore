@@ -37,3 +37,5 @@ data/gc_70_7
 data/gc_70_9
 handout.pdf
 _coursera
+__pycache__/utils.cpython-39.pyc
+__pycache__/solver.cpython-39.pyc
