@@ -3,6 +3,8 @@
 
 # Martino's version
 
+import utils as U
+
 def solve_it(input_data):
     # Modify this code to run your optimization algorithm
 
@@ -21,10 +23,15 @@ def solve_it(input_data):
 
     # build a trivial solution
     # every node has its own color
-    solution = range(0, node_count)
+    
+    g = U.Graph(edges,node_count)
+    g.trivial_colour()
+    
+    solution = g.colours
+    colour_count = g.colour_count
 
     # prepare the solution in the specified output format
-    output_data = str(node_count) + ' ' + str(0) + '\n'
+    output_data = str(colour_count) + ' ' + str(0) + '\n'
     output_data += ' '.join(map(str, solution))
 
     return output_data
