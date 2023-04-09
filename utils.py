@@ -15,7 +15,6 @@ class Graph(object):
         self.colours = [None for i in range(self.N)]
         self.neighbours = [set([]) for i in range(self.N)]
         self.make_neighbours()
-        print(self.neighbours)
         self.degree = [len(self.neighbours[i]) for i in range(self.N)]
         
         
@@ -23,7 +22,6 @@ class Graph(object):
         for e in self.edges:
             self.neighbours[e[0]].add(e[1])
             self.neighbours[e[1]].add(e[0])
-            print(self.neighbours)
             
     def trivial_colour(self):
         self.colours = [i for i in range(self.N)]
