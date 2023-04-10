@@ -26,6 +26,7 @@ def solve_it(input_data):
     
     g = U.Graph(edges,node_count)
     g.trivial_colour()
+    g.greedy_1()
     
     solution = g.colours
     colour_count = g.colour_count

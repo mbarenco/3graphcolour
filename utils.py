@@ -27,6 +27,29 @@ class Graph(object):
         self.colours = [i for i in range(self.N)]
         self.colour_count = max(self.colours) + 1
         
+    def colour_order(self,order,initialise=True):
+        if initialise: # remove all colours found
+            self.colours = [None for i in range(self.N)]
+        ur_vert = order[0]
+        self.colours[ur_vert] = 0
+        for i in range(1,self.N):
+            this_vert = order[i]
+            col_taken = set()
+            for neigh in self.neighbours[this_vert]:
+                if self.colours[neigh] is not None:
+                    col_taken.add(self.colours[neigh])
+            if len(col_taken):
+                col_choose = min(set(range(max(col_taken)+2)).difference(col_taken))
+            else:
+                col_choose = 0
+            self.colours[this_vert] = col_choose
+            
+    def greedy_1(self):
+        order_degree = argsort(self.degree, True)
+        self.colour_order(order_degree)
+            
+        
+        
 def read_input(file_location):
     f = open(file_location, 'r')
     input_data = f.read()
@@ -47,3 +70,29 @@ def read_input(file_location):
     
     g = Graph(edges,node_count)
     return g
+
+def argsort(seq, reverse=False):
+    return sorted(range(len(seq)), key=seq.__getitem__, reverse=reverse)
+
+
+"""
+Algorithms
+My simple algorithm works not so good but quick enough. It got 38/60 for the assignment, but I cannot find a graph which is simple enough to verity my algorithm will fail on it.
+
+This is what my algorithm did: 
+
+sort all the node to descending order of it's degree to list N
+
+ for node in list N, collect it's connected vertex's color to array C (use -1 to represent uncolored)
+
+    2.1. from 0 to node_count - 1, color the node with first available color c which is not in array C; 
+
+3. repeat step 2 until all the nodes were colored.
+********sol number 2*******
+I am a bit shocked. With this particular version of greedy algorithm, I got 57/60 with just one submission.
+
+It's all about how to shuffle the nodes. First apply an algorithm to the nodes so you have a solution to start with. Then group the nodes by colors. Then randomly pick one group, order the subset by degree in descending order. Pick another group, sort it and append the sorted list to the previous one. Finally feed the nodes to your greedy algorithm. Repeat the procedures on the new solutions for a couple thousand times. I did 3000.
+
+It's just greedy, no fancy tricks in permutation. Unbelievable.
+
+"""
