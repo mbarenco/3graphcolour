@@ -26,10 +26,10 @@ def solve_it(input_data):
     
     g = U.Graph(edges,node_count)
     g.trivial_colour()
-    g.greedy_1()
+    g.greedy_n(3000)
     
     solution = g.colours
-    colour_count = len(g.colours)
+    colour_count = len(set(g.colours))
 
     # prepare the solution in the specified output format
     output_data = str(colour_count) + ' ' + str(0) + '\n'

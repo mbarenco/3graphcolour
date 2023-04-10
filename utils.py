@@ -5,7 +5,8 @@ Created on Fri Apr  7 17:15:29 2023
 @author: m_bar
 """
 
-import numpy as npl
+import numpy as np
+import random
 
 class Graph(object):
     
@@ -47,6 +48,36 @@ class Graph(object):
     def greedy_1(self):
         order_degree = argsort(self.degree, True)
         self.colour_order(order_degree)
+        
+    def greedy_n(self, n):
+        random.seed(123)
+        self.greedy_1()
+        best = self.colours.copy()
+        best_score = len(set(best))
+        for i in range(n):
+            colist = list(set(best))
+            random.shuffle(colist)
+            new_order = []
+            col_dic = {i:[[],[]] for i in colist}
+            for vert in range(self.N):
+                col = self.colours[vert]
+                deg = self.degree[vert]
+                col_dic[col][0].append(vert)
+                col_dic[col][1].append(deg)
+            for col in col_dic:
+                sub_order = argsort(col_dic[col][1], True)
+                for o in sub_order:
+                    new_order.append(col_dic[col][0][o])
+            self.colour_order(new_order)
+            cand = self.colours
+            cand_score = len(set(cand))
+            if cand_score <= best_score:
+                if cand_score < best_score:
+                    print('better score of', cand_score, 'at iteration', i)#
+                best = cand.copy()
+                best_score = cand_score
+        self.colours = best.copy()
+                                  
             
         
         
