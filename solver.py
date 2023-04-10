@@ -29,7 +29,7 @@ def solve_it(input_data):
     g.greedy_1()
     
     solution = g.colours
-    colour_count = g.colour_count
+    colour_count = len(g.colours)
 
     # prepare the solution in the specified output format
     output_data = str(colour_count) + ' ' + str(0) + '\n'
